@@ -1,0 +1,26 @@
+name: Run deno
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run:
+    name: run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: denolib/setup-deno@v2
+        with:
+          deno-version: v1.x
+
+      - name: Run deno
+        run: |
+          deno --version
+          deno run https://deno.land/std/examples/welcome.ts
+          deno install --allow-read -n deno_cat https://deno.land/std/examples/cat.ts
+          deno_cat ./README.md
